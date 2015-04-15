@@ -1,0 +1,19 @@
+﻿.responseItem 
+{ 
+	display:block;
+	text-align:center; 
+	margin-bottom:10px;
+	float:left;
+}
+.responseItem label 
+{ 
+	display:block;
+}
+.responseItem img 
+{ 
+	display:block;
+}
+.responseItem input 
+{ 
+	display:block;
+}

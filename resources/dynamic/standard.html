@@ -1,0 +1,9 @@
+﻿<div class="controlContainer" style="visibility:hidden;">
+    <div id="adc_{%= CurrentADC.InstanceId %}" class="adc-imageSelect">
+        {% IF CurrentQuestion.Type = "single" Then %}
+          {%:= CurrentADC.GetContent("dynamic/standard_single.html").ToText()%}
+        {% ElseIf CurrentQuestion.Type = "multiple" Then %}
+          {%:= CurrentADC.GetContent("dynamic/standard_multiple.html").ToText()%}
+        {% EndIF %}
+    </div>
+</div>

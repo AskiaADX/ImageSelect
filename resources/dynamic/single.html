@@ -1,0 +1,26 @@
+﻿{%
+Dim inputName = CurrentQuestion.InputName()
+Dim inputValue
+Dim caption
+Dim resource
+
+Dim i
+
+Dim inputId
+Dim attrChecked
+For i = 1 To CurrentQuestion.AvailableResponses.Count 
+    inputId     = inputName + "_" + i
+    attrChecked = On(CurrentQuestion.AvailableResponses[i].IsSelected, "checked=\"checked\"", "")
+    inputValue  = CurrentQuestion.AvailableResponses[i].InputValue()
+    caption     = CurrentQuestion.AvailableResponses[i].Caption
+    resource	= CurrentQuestion.AvailableResponses.ResourceURL[i]
+%}
+<div class="responseItem" style="display:table-cell;">
+    {% IF (resource <> "") Then %}
+        <img src="{%= resource %}" style="vertical-align:middle" />
+    {% EndIf %}
+    <label for="{%= inputId %}">{%:= caption %}</label>
+    <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
+</div>   
+{% Next %}
+<div style="clear:both;"></div>
