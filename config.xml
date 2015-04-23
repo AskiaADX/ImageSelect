@@ -7,7 +7,7 @@
   <info>
     <name>adc2-imageSelect</name>
     <guid>5a729b84-1435-4a73-8660-19f865d413f1</guid>
-    <version>1.0.10</version>
+    <version>1.0.11</version>
     <date>2013-08-23</date>
     <description>
       <![CDATA[Describe your ADC here
@@ -17,6 +17,7 @@
 		v1.0.9 - updated jquery to 1.11.1
 			   - fixed sizing glitch when loading
 		v1.0.10 - fixed loading image glitch
+		v1.0.11 - fixed padding issue with ns responses
 	  ]]>
     </description>
     <author>

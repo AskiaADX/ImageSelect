@@ -203,7 +203,7 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 #adc_{%= CurrentADC.InstanceId%} .ns .response_text 
 { 
 	display:{%= displayResponseText%};
-	padding:10px;
+	padding:{%= responseTextPadding%};
 	font-size:{%= fontSize%};
 	color:rgb({%= nsfontColour%});
 }
