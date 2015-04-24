@@ -12,30 +12,30 @@
 
 		// Delegate .transition() calls to .animate() if the browser can't do CSS transitions.
 		if (!$.support.transition) $.fn.transition = $.fn.animate;
-		
+
 		$(this).css({'max-width':options.maxWidth,'width':options.controlWidth});
 		$(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});
-		
+
 		if ( options.controlAlign === "center" ) {
 			$(this).parents('.controlContainer').css({'text-align':'center'});
 			$(this).css({'margin':'0px auto'});
 		} else if ( options.controlAlign === "right" ) {
 			$(this).css({'margin':'0 0 0 auto'});
 		}
-		
+
 		if ( options.columns > 1 )  {
-			/*$('.column').width( (100/options.columns) + '%' ).css('float','left')*/ 
+			/*$('.column').width( (100/options.columns) + '%' ).css('float','left')*/
 			$('.column').css({'display':'block','width':'100%'});
 			$('.responseItem').css({'display':'block','float':'left'});
 		}
-		
+
 		// Global variables
 		var $container = $(this),
 			items = options.items,
             isMultiple = options.isMultiple,
 			total_images = $container.find("img").length,
 			images_loaded = 0;
-		
+
 		// For multi-coded question
 		// Add the @valueToAdd in @currentValue (without duplicate)
 		// and return the new value
@@ -77,7 +77,7 @@
 			currentValue = newArray.join(',');
 			return currentValue;
 		}
-		
+
 		// Select a statement
 		// @this = target node
 		function selectStatementSingle() {
@@ -89,15 +89,15 @@
 			$container.find('.selected').removeClass('selected').css('filter','');
 			$target.addClass('selected');
 			$input.val(value);
-			
+
 			// if auto forward do something
 			if ( options.autoForward ) $(':input[name=Next]:last').click();
 		}
-		
+
 		// Select a statement for multiple
 		// @this = target node
 		function selectStatementMulitple() {
-			
+
 			var $target = $(this),
 				value = $target.data('value'),
 				$input = items[$target.data('id')].element,
@@ -115,7 +115,7 @@
 				// Select
 
 				if (!isExclusive) {
-					
+
 					// Check if any exclusive
 					currentValue = addValue(currentValue, value);
 
@@ -138,16 +138,16 @@
 			// Update the value
 			$input.val(currentValue);
 		}
-				
+
 		// add ns to last x items
 		if ( options.numberNS > 0 ) $('.responseItem').slice(-options.numberNS).addClass('ns');
-		
+
 		// Retrieve previous selection
 		if ( !isMultiple ) {
-			
+
 			var $input = items[0].element;
 			var currentValue = $input.val();
-								
+
 			$container.find('.responseItem').each(function () {
 				var value = $(this).attr('data-value'),
 					isSelected = $(this).attr('data-value') == currentValue ? true : false;
@@ -157,13 +157,13 @@
 					$(this).removeClass('selected').css('filter','');
 				}
 			});
-		
+
 		} else if ( isMultiple ) {
-			
+
 			var $input = items[0].element;
 			var currentValues = String($input.val()).split(","),
 				currentValue;
-			
+
 			for ( var i=0; i<currentValues.length; i++ ) {
 				//currentValue = items[i].element.val();
 				currentValue = currentValues[i];
@@ -174,10 +174,10 @@
 						$(this).addClass('selected');
 					}
 				});
-				
+
 			}
 		}
-		
+
 		// Attach all events
 		//$container.delegate('.responseItem', 'click', (!isMultiple) ? selectStatementSingle : selectStatementMulitple);
 		if ( total_images > 0 ) {
@@ -187,24 +187,24 @@
 					images_loaded++;
 					if (images_loaded >= total_images) {
 						// now all images are loaded.
-						
+
 						if ( options.forceResponseSize === 'no' ) {
 							//$('.responseItem').width($('.responseItem').width());
 						} else if ( options.forceResponseSize === 'width' ) {
-							$('.responseItem').width( options.forcedResponseWidth );
+							$container.find('.responseItem').width( options.forcedResponseWidth );
 						} else if ( options.forceResponseSize === 'height' ) {
-							$('.responseItem').height( options.forcedResponseHeight );
+							$container.find('.responseItem').height( options.forcedResponseHeight );
 						} else if ( options.forceResponseSize === 'both' ) {
-							$('.responseItem').width( options.forcedResponseWidth ).height( options.forcedResponseHeight );
+							$container.find('.responseItem').width( options.forcedResponseWidth ).height( options.forcedResponseHeight );
 						}
-						
+
 						// Check for missing images and resize
 						$container.find('.responseItem img').each(function forEachImage() {
 							var size = {
 								width: $(this).width(),
 								height: $(this).height()
 							};
-							
+
 							if (options.forceImageSize === "height" ) {
 								if ( size.height > options.maxImageHeight ) {
 									var ratio = (options.maxImageHeight / size.height);
@@ -217,30 +217,30 @@
 									size.width  *= ratio,
 									size.height *= ratio;
 								} /*else applyPaddingTo = "width";*/
-								
+
 							} else if (options.forceImageSize === "both" ) {
 								if (options.maxImageHeight > 0 && size.height > options.maxImageHeight) {
 									var ratio = (options.maxImageHeight / size.height);
 									size.height *= ratio,
 									size.width  *= ratio;
 								}
-					
+
 								if (options.maxImageWidth > 0 && size.width > options.maxImageWidth) {
 									var ratio = (options.maxImageWidth / size.width);
 									size.width  *= ratio,
 									size.height *= ratio;
 								}
-							} 
+							}
 							$(this).css(size);
 						});
-						
+
 						$container.on('click', '.responseItem', (!isMultiple) ? selectStatementSingle : selectStatementMulitple);
 						$container.css('visibility','visible');
-						
+
 						if ( options.animate ) {
 							var delay = 0,
 								easing = (!$.support.transition)?'swing':'snap';
-							
+
 							$container.find('.responseItem').each(function forEachItem() {
 								$(this).css({ y: 2000, opacity: 0 }).transition({ y: 0, opacity: 1, delay: delay }, options.animationSpeed, easing);
 								delay += 30;
@@ -252,11 +252,11 @@
 		} else {
 			$container.on('click', '.responseItem', (!isMultiple) ? selectStatementSingle : selectStatementMulitple);
 			$container.css('visibility','visible');
-			
+
 			if ( options.animate ) {
 				var delay = 0,
 					easing = (!$.support.transition)?'swing':'snap';
-				
+
 				$container.find('.responseItem').each(function forEachItem() {
 					$(this).css({ y: 2000, opacity: 0 }).transition({ y: 0, opacity: 1, delay: delay }, options.animationSpeed, easing);
 					delay += 30;

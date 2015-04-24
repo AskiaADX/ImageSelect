@@ -56,17 +56,17 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 
 
 /* Reponses */
-#adc_{%= CurrentADC.InstanceId%} .responseItem 
-{   
-    /* Element */	
+#adc_{%= CurrentADC.InstanceId%} .responseItem
+{
+    /* Element */
 	/* Decoration */
 	{% IF CurrentADC.PropValue("borderThickness") = "none" Then %}
 		border: none;
 	{% Else %}
 		border: {%= borderThickness%} {%= borderStyle%} rgb({%= borderColour%});
-	{% EndIF %}	
-	
-	background: rgb({%= responseColourPrimary%}); 
+	{% EndIF %}
+
+	background: rgb({%= responseColourPrimary%});
 	background: -moz-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%, rgb({%= responseColourSecondary%}) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= responseColourPrimary%})), color-stop(100%,rgb({%= responseColourSecondary%}))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* Chrome10+,Safari5.1+ */
@@ -74,33 +74,33 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 	background: -ms-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= responseColourPrimary.ToHexa()%}, endColorstr={%= responseColourSecondary.ToHexa()%},GradientType=0 ); /* IE6-8 */
-	
+
 	/* Effects */
-	-webkit-border-radius:	{%= borderRadius%}; 
-	-moz-border-radius:		{%= borderRadius%}; 
-	-khtml-border-radius:	{%= borderRadius%}; 
+	-webkit-border-radius:	{%= borderRadius%};
+	-moz-border-radius:		{%= borderRadius%};
+	-khtml-border-radius:	{%= borderRadius%};
 	border-radius:			{%= borderRadius%};
-	
+
 	-webkit-box-shadow: {%= responseShadow%};
 	-moz-box-shadow: {%= responseShadow%};
 	box-shadow: {%= responseShadow%};
-	
+
 	{% IF imageAlign = "center" Then %}
 		text-align:center;
 	{% EndIF %}
-	
+
 }
 
 #adc_{%= CurrentADC.InstanceId%} .responseItem:hover
 {
-	/* Element */	
+	/* Element */
 	/* Decoration */
 	{% IF showResponseHoverBorder = "1" Then %}
 		border: {%= responseHoverBorderThickness%} {%= responseHoverBorderStyle%} rgb({%= responseHoverBorderColour%}) !important;
 	{% Else %}
 		border: {%= borderThickness%} {%= borderStyle%} rgb({%= borderColour%}) !important;
 	{% EndIF %}
-	
+
 	{% IF showResponseHoverColour = "1" Then %}
 		background: rgb({%= responseHoverColourPrimary%}) !important;
 		background: -moz-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%, rgb({%= responseHoverColourSecondary%}) 100%) !important; /* FF3.6+ */
@@ -111,15 +111,15 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 		background: linear-gradient(to bottom,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* W3C */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= responseHoverColourPrimary.ToHexa()%}', endColorstr='{%= responseHoverColourSecondary.ToHexa()%}',GradientType=0 ) !important; /* IE6-8 */
 	{% EndIF %}
-	
+
 	-webkit-box-shadow: {%= responseHoverShadow%};
 	-moz-box-shadow: {%= responseHoverShadow%};
 	box-shadow: {%= responseHoverShadow%};
-	
+
 }
 
-#adc_{%= CurrentADC.InstanceId%} .response_text 
-{ 
+#adc_{%= CurrentADC.InstanceId%} .response_text
+{
 	display:{%= displayResponseText%};
 	font-size:{%= fontSize%};
 	text-align:{%= textAlign%};
@@ -128,15 +128,15 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 	line-height:{%= responseTextLineHeight%};
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem:hover .response_text 
-{ 
+#adc_{%= CurrentADC.InstanceId%} .responseItem:hover .response_text
+{
 	{% IF showResponseHoverFontColour = "1" Then %}
 		color:rgb({%= responseHoverFontColour%}) !important;
 	{% EndIF %}
 }
 
-.responseItem img {
-		
+#adc_{%= CurrentADC.InstanceId%} .responseItem img {
+
 	float: {%= imageAlign%};
 	{% IF imageAlign = "center" Then %}
 		margin-left:auto;
@@ -144,14 +144,14 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 	{% EndIF %}
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem.selected 
-{	
-    /* Decoration */	
+#adc_{%= CurrentADC.InstanceId%} .responseItem.selected
+{
+    /* Decoration */
 	{% IF CurrentADC.PropValue("responseSelectedBorderThickness") = "none" Then %}
 		border: none !important;
 	{% Else %}
 		border: {%= responseSelectedBorderThickness%} {%= responseSelectedBorderStyle%} rgb({%= responseSelectedBorderColour%}) !important;
-	{% EndIF %}	
+	{% EndIF %}
 	background: rgb({%= responseSelectedColourPrimary%}) !important;
 	background: -moz-linear-gradient(top,  rgb({%= responseSelectedColourPrimary%}) 0%, rgb({%= ResponseSelectedColourSecondary%}) 100%) !important; /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= responseSelectedColourPrimary%})), color-stop(100%,rgb({%= ResponseSelectedColourSecondary%}))) !important; /* Chrome,Safari4+ */
@@ -160,27 +160,27 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 	background: -ms-linear-gradient(top,  rgb({%= responseSelectedColourPrimary%}) 0%,rgb({%= ResponseSelectedColourSecondary%}) 100%) !important; /* IE10+ */
 	background: linear-gradient(to bottom,  rgb({%= responseSelectedColourPrimary%}) 0%,rgb({%= ResponseSelectedColourSecondary%}) 100%) !important; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= responseSelectedColourPrimary.ToHexa()%}', endColorstr='{%= ResponseSelectedColourSecondary.ToHexa()%}',GradientType=0 ) !important; /* IE6-8 */
-	
+
 	-webkit-box-shadow: {%= responseSelectedShadow%} !important;
 	-moz-box-shadow: {%= responseSelectedShadow%} !important;
 	box-shadow: {%= responseSelectedShadow%} !important;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem.selected .response_text 
+#adc_{%= CurrentADC.InstanceId%} .responseItem.selected .response_text
 {
     color:rgb({%= responseSelectedFontColour%}) !important;
 }
 
 /* Non Scaled Reponses */
-#adc_{%= CurrentADC.InstanceId%} .ns 
-{   
+#adc_{%= CurrentADC.InstanceId%} .ns
+{
 	/* Decoration */
 	{% IF CurrentADC.PropValue("nsResponseBorderThickness") = "none" Then %}
 		border: none;
 	{% Else %}
 		border: {%= nsResponseBorderThickness%} {%= nsResponseBorderStyle%} rgb({%= nsResponseBorderColour%});
-	{% EndIF %}	
-	background: rgb({%= nsResponseColourPrimary%}); 
+	{% EndIF %}
+	background: rgb({%= nsResponseColourPrimary%});
 	background: -moz-linear-gradient(top,  rgb({%= nsResponseColourPrimary%}) 0%, rgb({%= nsResponseColourSecondary%}) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= nsResponseColourPrimary%})), color-stop(100%,rgb({%= nsResponseColourSecondary%}))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  rgb({%= nsResponseColourPrimary%}) 0%,rgb({%= nsResponseColourSecondary%}) 100%); /* Chrome10+,Safari5.1+ */
@@ -188,35 +188,35 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 	background: -ms-linear-gradient(top,  rgb({%= nsResponseColourPrimary%}) 0%,rgb({%= nsResponseColourSecondary%}) 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  rgb({%= nsResponseColourPrimary%}) 0%,rgb({%= nsResponseColourSecondary%}) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= nsResponseColourPrimary.ToHexa()%}', endColorstr='{%= nsResponseColourSecondary.ToHexa()%}',GradientType=0 ); /* IE6-8 */
-	
+
 	/* Effects */
-	-webkit-border-radius:	{%= borderRadius%}; 
-	-moz-border-radius:		{%= borderRadius%}; 
-	-khtml-border-radius:	{%= borderRadius%}; 
+	-webkit-border-radius:	{%= borderRadius%};
+	-moz-border-radius:		{%= borderRadius%};
+	-khtml-border-radius:	{%= borderRadius%};
 	border-radius:			{%= borderRadius%};
-	
+
 	-webkit-box-shadow: {%= nsResponseShadow%};
 	-moz-box-shadow: {%= nsResponseShadow%};
 	box-shadow: {%= nsResponseShadow%};
 }
 
-#adc_{%= CurrentADC.InstanceId%} .ns .response_text 
-{ 
+#adc_{%= CurrentADC.InstanceId%} .ns .response_text
+{
 	display:{%= displayResponseText%};
 	padding:{%= responseTextPadding%};
 	font-size:{%= fontSize%};
 	color:rgb({%= nsfontColour%});
 }
 
-#adc_{%= CurrentADC.InstanceId%} .ns.selected 
-{	
-    /* Decoration */	
+#adc_{%= CurrentADC.InstanceId%} .ns.selected
+{
+    /* Decoration */
 	{% IF CurrentADC.PropValue("nsResponseSelectedBorderThickness") = "none" Then %}
 		border: none !important;
 	{% Else %}
 		border: {%= nsResponseSelectedBorderThickness%} {%= nsResponseSelectedBorderStyle%} rgb({%= nsResponseSelectedBorderColour%}) !important;
-	{% EndIF %}	
-	background: rgb({%= nsResponseSelectedColourPrimary%}) !important; 
+	{% EndIF %}
+	background: rgb({%= nsResponseSelectedColourPrimary%}) !important;
 	background: -moz-linear-gradient(top,  rgb({%= nsResponseSelectedColourPrimary%}) 0%, rgb({%= nsResponseSelectedColourSecondary%}) 100%) !important; /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= nsResponseSelectedColourPrimary%})), color-stop(100%,rgb({%= nsResponseSelectedColourSecondary%}))) !important; /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  rgb({%= nsResponseSelectedColourPrimary%}) 0%,rgb({%= nsResponseSelectedColourSecondary%}) 100%) !important; /* Chrome10+,Safari5.1+ */
@@ -224,13 +224,13 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 	background: -ms-linear-gradient(top,  rgb({%= nsResponseSelectedColourPrimary%}) 0%,rgb({%= nsResponseSelectedColourSecondary%}) 100%) !important; /* IE10+ */
 	background: linear-gradient(to bottom,  rgb({%= nsResponseSelectedColourPrimary%}) 0%,rgb({%= nsResponseSelectedColourSecondary%}) 100%) !important; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= nsResponseSelectedColourPrimary.ToHexa()%}', endColorstr='{%= nsResponseSelectedColourSecondary.ToHexa()%}',GradientType=0 ) !important; /* IE6-8 */
-	
+
 	-webkit-box-shadow: {%= nsResponseSelectedShadow%};
 	-moz-box-shadow: {%= nsResponseSelectedShadow%};
 	box-shadow: {%= nsResponseSelectedShadow%};
 }
 
-#adc_{%= CurrentADC.InstanceId%} .ns.selected .response_text 
+#adc_{%= CurrentADC.InstanceId%} .ns.selected .response_text
 {
     color:rgb({%= nsResponseSelectedFontColour%}) !important;
 }

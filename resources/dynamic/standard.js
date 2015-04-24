@@ -1,6 +1,7 @@
 ﻿/* standard.js */
 $(window).load(function() {
 	$('#adc_{%= CurrentADC.InstanceId %}').adcImageSelect({
+		root : '#adc_{%= CurrentADC.InstanceId %}',
 		target : 'jsObj{%= CurrentADC.InstanceId%}',
 		width : 400,
 		isSingle: {%= (CurrentQuestion.Type = "single") %},
