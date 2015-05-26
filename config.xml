@@ -18,7 +18,7 @@
 			   - fixed sizing glitch when loading
 		v1.0.10 - fixed loading image glitch
 		v1.0.11 - fixed padding issue with ns responses
-    v1.0.12 - fixed scope issues with .css selectors
+        v1.0.12 - fixed scope issues with .css selectors
 	  ]]>
     </description>
     <author>
