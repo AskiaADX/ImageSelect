@@ -5,8 +5,8 @@
 .adc-imageSelect .responseItem
 {
     /* Element */
-	display:block;
-	float:left;
+	display:inline-block;
+	/*float:left;*/
 	/*width:130px !important;*/
 	/*height:60px !important;*/
 	margin:0 5px 10px 5px;
