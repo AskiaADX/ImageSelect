@@ -89,6 +89,9 @@
 			$container.find('.selected').removeClass('selected').css('filter','');
 			$target.addClass('selected');
 			$input.val(value);
+            if (window.askia) {
+                askia.triggerAnswer();
+            }
 
 			// if auto forward do something
 			if ( options.autoForward ) $(':input[name=Next]:last').click();
@@ -137,6 +140,9 @@
 
 			// Update the value
 			$input.val(currentValue);
+            if (window.askia) {
+                askia.triggerAnswer();
+            }
 		}
 
 		// add ns to last x items
