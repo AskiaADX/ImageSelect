@@ -84,13 +84,13 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 	/* Element */
 	/* Decoration */
 	{% IF showResponseHoverBorder = "1" Then %}
-		border: {%= responseHoverBorderThickness%} {%= responseHoverBorderStyle%} rgb({%= responseHoverBorderColour%}) !important;
+		border: {%= responseHoverBorderThickness%} {%= responseHoverBorderStyle%} rgb({%= responseHoverBorderColour%});
 	{% Else %}
-		border: {%= borderThickness%} {%= borderStyle%} rgb({%= borderColour%}) !important;
+		border: {%= borderThickness%} {%= borderStyle%} rgb({%= borderColour%});
 	{% EndIF %}
 
 	{% IF showResponseHoverColour = "1" Then %}
-		background-color: rgb({%= responseHoverColourPrimary%}) !important;
+		background-color: rgb({%= responseHoverColourPrimary%});
 	{% EndIF %}
 
 	-webkit-box-shadow: {%= responseHoverShadow%};
@@ -112,7 +112,7 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 #adc_{%= CurrentADC.InstanceId%} .responseItem:hover .response_text
 {
 	{% IF showResponseHoverFontColour = "1" Then %}
-		color:rgb({%= responseHoverFontColour%}) !important;
+		color:rgb({%= responseHoverFontColour%});
 	{% EndIF %}
 }
 
@@ -129,20 +129,20 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 {
     /* Decoration */
 	{% IF CurrentADC.PropValue("responseSelectedBorderThickness") = "none" Then %}
-		border: none !important;
+		border: none;
 	{% Else %}
-		border: {%= responseSelectedBorderThickness%} {%= responseSelectedBorderStyle%} rgb({%= responseSelectedBorderColour%}) !important;
+		border: {%= responseSelectedBorderThickness%} {%= responseSelectedBorderStyle%} rgb({%= responseSelectedBorderColour%});
 	{% EndIF %}
-	background-color: rgb({%= responseSelectedColourPrimary%}) !important;
+	background-color: rgb({%= responseSelectedColourPrimary%});
 
-	-webkit-box-shadow: {%= responseSelectedShadow%} !important;
-	-moz-box-shadow: {%= responseSelectedShadow%} !important;
-	box-shadow: {%= responseSelectedShadow%} !important;
+	-webkit-box-shadow: {%= responseSelectedShadow%};
+	-moz-box-shadow: {%= responseSelectedShadow%};
+	box-shadow: {%= responseSelectedShadow%};
 }
 
 #adc_{%= CurrentADC.InstanceId%} .responseItem.selected .response_text
 {
-    color:rgb({%= responseSelectedFontColour%}) !important;
+    color:rgb({%= responseSelectedFontColour%});
 }
 
 /* Non Scaled Reponses */
@@ -179,11 +179,11 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 {
     /* Decoration */
 	{% IF CurrentADC.PropValue("nsResponseSelectedBorderThickness") = "none" Then %}
-		border: none !important;
+		border: none;
 	{% Else %}
-		border: {%= nsResponseSelectedBorderThickness%} {%= nsResponseSelectedBorderStyle%} rgb({%= nsResponseSelectedBorderColour%}) !important;
+		border: {%= nsResponseSelectedBorderThickness%} {%= nsResponseSelectedBorderStyle%} rgb({%= nsResponseSelectedBorderColour%});
 	{% EndIF %}
-	background-color: rgb({%= nsResponseSelectedColourPrimary%}) !important;
+	background-color: rgb({%= nsResponseSelectedColourPrimary%});
 
 	-webkit-box-shadow: {%= nsResponseSelectedShadow%};
 	-moz-box-shadow: {%= nsResponseSelectedShadow%};
@@ -192,5 +192,5 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 
 #adc_{%= CurrentADC.InstanceId%} .ns.selected .response_text
 {
-    color:rgb({%= nsResponseSelectedFontColour%}) !important;
+    color:rgb({%= nsResponseSelectedFontColour%});
 }

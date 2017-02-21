@@ -138,11 +138,9 @@
         <description><![CDATA[The amount of curve on the response corners]]></description>
         <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="animateResponses" name="Animate Responses" type="boolean" mode="static">
-        <description><![CDATA[
-          Whether the resonses fly into the screen
-        ]]></description>
-        <value><![CDATA[false]]></value>
+      <property xsi:type="standardProperty" id="animateResponses" name="Animate Responses" type="boolean" mode="static" require="false" visible="true">
+        <description><![CDATA[Whether the resonses fly into the screen]]></description>
+        <value><![CDATA[0]]></value>
       </property>
       <property xsi:type="standardProperty" id="animationSpeed" name="Animation Speed" type="string" mode="static">
         <description><![CDATA[
@@ -156,11 +154,9 @@
           <option value="slow" text="Slow" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="autoForward" name="Auto Forward" type="boolean" mode="static">
-        <description><![CDATA[
-          Whether the question continues to the next automatically if a single choice question
-        ]]></description>
-        <value><![CDATA[false]]></value>
+      <property xsi:type="standardProperty" id="autoForward" name="Auto Forward" type="boolean" mode="static" require="false" visible="true">
+        <description><![CDATA[Whether the question continues to the next automatically if a single choice question]]></description>
+        <value><![CDATA[0]]></value>
       </property>
     </category>
     <category id="responses" name="Responses">
