@@ -1,4 +1,4 @@
-﻿/* standard.js */
+/* standard.js */
 $(window).load(function() {
 	$('#adc_{%= CurrentADC.InstanceId %}').adcImageSelect({
 		root : '#adc_{%= CurrentADC.InstanceId %}',
@@ -24,6 +24,7 @@ $(window).load(function() {
 		showResponseHoverFontColour: {%= (CurrentADC.PropValue("showResponseHoverFontColour") = "1") %},
 		showResponseHoverBorder: {%= (CurrentADC.PropValue("showResponseHoverBorder") = "1") %},
 		showResponseHoverShadow: {%= (CurrentADC.PropValue("showResponseHoverShadow") = "1") %},
+      	currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
 		items : [
 			{% IF CurrentQuestion.Type = "single" Then %}
 				{%:= CurrentADC.GetContent("dynamic/standard_single.js").ToText()%}

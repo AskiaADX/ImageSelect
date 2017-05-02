@@ -9,6 +9,7 @@
 		(options.isMultiple = Boolean(options.isMultiple));
 		(options.animate = Boolean(options.animate));
 		(options.autoForward = Boolean(options.autoForward));
+        (options.currentQuestion = options.currentQuestion || '');
 
 		// Delegate .transition() calls to .animate() if the browser can't do CSS transitions.
 		if (!$.support.transition) $.fn.transition = $.fn.animate;
@@ -89,7 +90,10 @@
 			$container.find('.selected').removeClass('selected').css('filter','');
 			$target.addClass('selected');
 			$input.val(value);
-            if (window.askia) {
+            if (window.askia 
+                && window.arrLiveRoutingShortcut 
+                && window.arrLiveRoutingShortcut.length > 0
+                && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
             }
 
@@ -140,7 +144,10 @@
 
 			// Update the value
 			$input.val(currentValue);
-            if (window.askia) {
+            if (window.askia 
+                && window.arrLiveRoutingShortcut 
+                && window.arrLiveRoutingShortcut.length > 0
+                && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
             }
 		}
