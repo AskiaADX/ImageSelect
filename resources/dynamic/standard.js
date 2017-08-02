@@ -1,6 +1,8 @@
-/* standard.js */
-$(window).load(function() {
-	$('#adc_{%= CurrentADC.InstanceId %}').adcImageSelect({
+DomReady.ready(function() {
+     
+    var imageSelect = new ImageSelect({
+        instanceId : '{%= CurrentADC.InstanceId%}',
+        currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
 		root : '#adc_{%= CurrentADC.InstanceId %}',
 		target : 'jsObj{%= CurrentADC.InstanceId%}',
 		width : 400,
@@ -17,8 +19,6 @@ $(window).load(function() {
 		forcedResponseHeight : '{%= CurrentADC.PropValue("forcedResponseH") %}',
 		forceResponseSize : '{%= CurrentADC.PropValue("forceResponseSize") %}',
 		autoForward: {%= (CurrentADC.PropValue("autoForward") = "1") %},
-		animate: {%= (CurrentADC.PropValue("animateResponses") = "1") %},
-		animationSpeed: '{%= CurrentADC.PropValue("animationSpeed") %}',
 		numberNS: {%= CurrentADC.PropValue("numberNS") %},
 		showResponseHoverColour: {%= (CurrentADC.PropValue("showResponseHoverColour") = "1") %},
 		showResponseHoverFontColour: {%= (CurrentADC.PropValue("showResponseHoverFontColour") = "1") %},

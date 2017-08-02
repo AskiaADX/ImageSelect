@@ -1,284 +1,345 @@
-(function ($) {
-	"use strict";
+(function () {
+    
+     // Polyfill: Add a getElementsByClassName function IE < 9
+    function polyfillGetElementsByClassName() {
+        if (!document.getElementsByClassName) {
+            document.getElementsByClassName = function(search) {
+                var d = document, elements, pattern, i, results = [];
+                if (d.querySelectorAll) { // IE8
+                    return d.querySelectorAll("." + search);
+                }
+                if (d.evaluate) { // IE6, IE7
+                    pattern = ".//*[contains(concat(' ', @class, ' '), ' " + search + " ')]";
+                    elements = d.evaluate(pattern, d, null, 0, null);
+                    while ((i = elements.iterateNext())) {
+                        results.push(i);
+                    }
+                } else {
+                    elements = d.getElementsByTagName("*");
+                    pattern = new RegExp("(^|\\s)" + search + "(\\s|$)");
+                    for (var j = 0, l = elements.length; j < l; j++) {
+                        if ( pattern.test(elements[j].className) ) {
+                            results.push(elements[j]);
+                        }
+                    }
+                }
+                return results;
+            }
+        }
+	}
+    
+	function hasClass(el, className) {
+        return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
+	}
 
-	$.fn.adcImageSelect = function adcImageSelect(options) {
+	function addClass(el, className) {
+        if (el.classList) el.classList.add(className);
+        else if (!hasClass(el, className)) el.className += ' ' + className;
+	}
 
+	function removeClass(el, className) {
+        if (el.classList) el.classList.remove(className);
+        else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
+	}
+	
+	function ImageSelect(options) {
+		this.instanceId = options.instanceId || 1;
+        var container = document.getElementById("adc_" + this.instanceId),
+            images = [].slice.call(container.getElementsByTagName("img")),
+        	total_images = container.getElementsByTagName("img").length;
+        
+        function loadImages( images, callback ) {
+            var count = 0;
+
+            function check( n ) {
+                if( n == total_images ) {
+                    callback();
+                }
+            }
+
+            for( i = 0; i < total_images; ++i ) {
+                var src = images[i].src;
+                var img = document.createElement( "img" );
+                img.src = src;
+
+                img.addEventListener( "load", function() {
+                    if( this.complete ) {
+                        count++;
+                        check( count );
+                    }
+                });
+            }
+
+        }
+
+        window.addEventListener( "load", function() {
+            if ( total_images > 0 ) {
+                loadImages( images, function() {
+                    init(options);
+                });
+            } else {
+                init(options);
+            }
+        });
+        
+    }
+
+    function init(options) {
+        
+		this.instanceId = options.instanceId || 1;
+		this.options = options;
 		(options.responseWidth = options.responseWidth || "auto");
 		(options.responseHeight = options.responseHeight || "auto");
 		(options.isSingle = Boolean(options.isSingle));
 		(options.isMultiple = Boolean(options.isMultiple));
-		(options.animate = Boolean(options.animate));
 		(options.autoForward = Boolean(options.autoForward));
         (options.currentQuestion = options.currentQuestion || '');
 
-		// Delegate .transition() calls to .animate() if the browser can't do CSS transitions.
-		if (!$.support.transition) $.fn.transition = $.fn.animate;
-
-		$(this).css({'max-width':options.maxWidth,'width':options.controlWidth});
-		$(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});
-
+		polyfillGetElementsByClassName();
+		var container = document.getElementById("adc_" + this.instanceId),
+            columns =  container.getElementsByClassName('column'),
+            responseItems =  [].slice.call(container.getElementsByClassName('responseItem')),
+            images = container.getElementsByTagName("img"),
+			inputs = [].slice.call(document.getElementsByTagName("input")),
+            submitBtns = [],
+            nextBtn,
+            items = options.items,
+        	isMultiple = options.isMultiple,
+			total_images = container.getElementsByTagName("img").length,
+			images_loaded = 0;
+        
+        for(var i = 0; i < inputs.length; i++) {
+            if(inputs[i].type.toLowerCase() === 'submit') {
+               submitBtns.push(inputs[i]);
+            }
+        }
+        nextBtn = submitBtns[submitBtns.length-2];
+                
+        container.style.maxWidth = options.maxWidth;
+        container.style.width = options.controlWidth;
+        container.parentNode.style.width = '100%';
+        container.parentNode.style.overflow = 'hidden';
+		
 		if ( options.controlAlign === "center" ) {
-			$(this).parents('.controlContainer').css({'text-align':'center'});
-			$(this).css({'margin':'0px auto'});
+            container.parentNode.style.textAlign = 'center';
+            container.style.margin = '0px auto';
 		} else if ( options.controlAlign === "right" ) {
-			$(this).css({'margin':'0 0 0 auto'});
+            container.style.margin = '0 0 0 auto';
 		}
 
 		if ( options.columns > 1 )  {
-			/*$('.column').width( (100/options.columns) + '%' ).css('float','left')*/
-			$('.column').css({'display':'block','width':'100%'});
-			$('.responseItem').css({'display':'block','float':'left'});
+            for ( i=0; i < columns.length; i++ ) {
+                columns[i].style.display = "block";
+                columns[i].style.width = '100%';
+            }
+            for ( i=0; i < responseItems.length; i++ ) {
+                responseItems[i].style.display = "block";
+                responseItems[i].style.float = 'left';
+            }
 		}
+        
+        // Check for missing images and resize
+        for ( i=0; i<images.length; i++) {
+            var size = {
+                width: images[i].width,
+                height: images[i].height
+            };
 
-		// Global variables
-		var $container = $(this),
-			items = options.items,
-            isMultiple = options.isMultiple,
-			total_images = $container.find("img").length,
-			images_loaded = 0;
+            if (options.forceImageSize === "height" ) {
+                if ( size.height > parseInt(options.maxImageHeight,10) ) {
+                    var ratio = ( parseInt(options.maxImageHeight,10) / size.height);
+                    size.height *= ratio;
+                    size.width  *= ratio;
+                }
+            } else if (options.forceImageSize === "width" ) {
+                if ( size.width > parseInt(options.maxImageWidth,10) ) {
+                    var ratio = ( parseInt(options.maxImageWidth,10) / size.width);
+                    size.width  *= ratio;
+                    size.height *= ratio;
+                }
+            } else if (options.forceImageSize === "both" ) {
+                if ( parseInt(options.maxImageHeight,10) > 0 && size.height > parseInt(options.maxImageHeight,10) ) {
+                    var ratio = ( parseInt(options.maxImageHeight,10) / size.height);
+                    size.height *= ratio;
+                    size.width  *= ratio;
+                }
 
-		// For multi-coded question
-		// Add the @valueToAdd in @currentValue (without duplicate)
-		// and return the new value
-		function addValue(currentValue, valueToAdd) {
-			if (currentValue == '') {
-				return valueToAdd;
-			}
+                if ( parseInt(options.maxImageWidth,10) > 0 && size.width > parseInt(options.maxImageWidth,10) ) {
+                    var ratio = ( parseInt(options.maxImageWidth,10) / size.width);
+                    size.width  *= ratio;
+                    size.height *= ratio;
+                }
 
-			var arr = String(currentValue).split(','), i, l, wasFound = false;
+            } 
+            images[i].width = size.width;
+            images[i].height = size.height;
+        }
+        
+        // For multi-coded question
+        // Add the @valueToAdd in @currentValue (without duplicate)
+        // and return the new value
+        function addValue(currentValue, valueToAdd) {
+            
+            if (currentValue === '' || currentValue === null) {
+                return valueToAdd;
+            }
+            var arr = String(currentValue).split(','), i, l, wasFound = false;
+                for (i = 0, l = arr.length; i < l; i += 1) {
+                if (arr[i] === valueToAdd) {
+                    wasFound = true;
+                    break;
+                }
+            }
+            if (!wasFound) {
+                currentValue += ',' + valueToAdd;
+            }
+            return currentValue;
+        }
 
-			for (i = 0, l = arr.length; i < l; i += 1) {
-				if (arr[i] == valueToAdd) {
-					wasFound = true;
-					break;
-				}
-			}
-
-			if (!wasFound) {
-				currentValue += ',' + valueToAdd;
-			}
-			return currentValue;
-		}
-
-		// For multi-coded question
-		// Remove the @valueToRemove from the @currentValue
-		// and return the new value
-		function removeValue(currentValue, valueToRemove) {
-			if (currentValue === '') {
-				return currentValue;
-			}
-			var arr = String(currentValue).split(','),
-                        i, l,
-                        newArray = [];
-			for (i = 0, l = arr.length; i < l; i += 1) {
-				if (arr[i] != valueToRemove) {
-					newArray.push(arr[i]);
-				}
-			}
-			currentValue = newArray.join(',');
-			return currentValue;
-		}
+        // For multi-coded question
+        // Remove the @valueToRemove from the @currentValue
+        // and return the new value
+        function removeValue(currentValue, valueToRemove) {
+            if (currentValue === '' || currentValue === null) {
+                return currentValue;
+            }
+            var arr = String(currentValue).split(','), i, l, newArray = [];
+            for (i = 0, l = arr.length; i < l; i += 1) {
+                if (arr[i] !== valueToRemove) {
+                    newArray.push(arr[i]);
+                }
+            }
+            currentValue = newArray.join(',');
+            return currentValue;
+        }
 
 		// Select a statement
 		// @this = target node
-		function selectStatementSingle() {
+		function selectStatementSingle(target) {
+            
+            var input = items[0].element,
+                value = target.getAttribute('data-value');
 
-			var $input = items[0].element,
-				$target = $(this),
-				value = $target.attr('data-value');
-
-			$container.find('.selected').removeClass('selected').css('filter','');
-			$target.addClass('selected');
-			$input.val(value);
-            if (window.askia 
-                && window.arrLiveRoutingShortcut 
-                && window.arrLiveRoutingShortcut.length > 0
-                && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
+            var selectedElements = [].slice.call(container.getElementsByClassName('selected'));
+            for ( i=0; i<selectedElements.length; i++) {
+                selectedElements[i].style.filter = '';
+                removeClass(selectedElements[i], 'selected');
+            }
+            
+            addClass(target, 'selected');
+            input.value = value;
+            if (window.askia && window.arrLiveRoutingShortcut && window.arrLiveRoutingShortcut.length > 0 && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
             }
-
-			// if auto forward do something
-			if ( options.autoForward ) $(':input[name=Next]:last').click();
-		}
-
-		// Select a statement for multiple
-		// @this = target node
-		function selectStatementMulitple() {
-
-			var $target = $(this),
-				value = $target.data('value'),
-				$input = items[$target.data('id')].element,
-				isExclusive = items[$target.data('id')].isExclusive,
-				currentValue = $input.val();
-
-			if ($target.hasClass('selected')) {
-				// Un-select
-
-				$target.removeClass('selected').css('filter','');
-				//$input.prop('checked', false);
-				currentValue = removeValue(currentValue, value);
-			} else {
-
-				// Select
-
-				if (!isExclusive) {
-
-					// Check if any exclusive
-					currentValue = addValue(currentValue, value);
-
-					// Un-select all exclusives
-					$container.find('.exclusive').each(function forEachExclusives() {
-						$(this).removeClass('selected').css('filter','');
-						currentValue = removeValue(currentValue, $(this).data('value'));
-					});
-
-				} else {
-
-					// When exclusive un-select all others
-					$container.find('.selected').removeClass('selected').css('filter','');
-					currentValue = value;
-
-				}
-				$target.addClass('selected');
-			}
-
-			// Update the value
-			$input.val(currentValue);
-            if (window.askia 
-                && window.arrLiveRoutingShortcut 
-                && window.arrLiveRoutingShortcut.length > 0
-                && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
-                askia.triggerAnswer();
+            
+            // if auto forward do something
+            if ( options.autoForward ) {
+                // FIX FIX
+                //$(':input[name=Next]:last').click();
+                nextBtn.click();
             }
 		}
+        
+        // Select a statement for multiple
+        // @this = target node
+        function selectStatementMulitple(target) {
+            var value = target.getAttribute('data-value'),
+                 input = document.querySelector(items[target.getAttribute('data-id')].element),
+                 isExclusive = Boolean(items[target.getAttribute('data-id')].isExclusive),
+                 currentValue = input.value;
 
-		// add ns to last x items
-		if ( options.numberNS > 0 ) $('.responseItem').slice(-options.numberNS).addClass('ns');
+            if (hasClass(target, 'selected')) {
+                // Un-select
+                target.style.filter = '';
+                removeClass(target, 'selected');
+                currentValue = removeValue(currentValue, value);
+            } else {
+                // Select
+                if (!isExclusive) {
+                    // Check if any exclusive
+                    currentValue = addValue(currentValue, value);
 
-		// Retrieve previous selection
-		if ( !isMultiple ) {
+                    // Un-select all exclusives
+                    var exclusiveElements = [].slice.call(container.getElementsByClassName('exclusive'));
+                    for ( i=0; i<exclusiveElements.length; i++) {
+                        exclusiveElements[i].style.filter = '';
+                        removeClass(exclusiveElements[i], 'selected');
+                        currentValue = removeValue(currentValue, exclusiveElements[i].getAttribute('data-value'));
+                    }
 
-			var $input = items[0].element;
-			var currentValue = $input.val();
+                } else {
 
-			$container.find('.responseItem').each(function () {
-				var value = $(this).attr('data-value'),
-					isSelected = $(this).attr('data-value') == currentValue ? true : false;
-				if (isSelected) {
-					$(this).addClass('selected');
-				} else {
-					$(this).removeClass('selected').css('filter','');
-				}
-			});
+                    // When exclusive un-select all others
+                    var exclusiveElements = [].slice.call(container.getElementsByClassName('exclusive'));
+                    var selectedElements = [].slice.call(container.getElementsByClassName('selected'));
+                    for ( i=0; i<selectedElements.length; i++) {
+                        selectedElements[i].style.filter = '';
+                        removeClass(selectedElements[i], 'selected');
+                    }
+                    currentValue = value;
+                }
+                addClass(target, 'selected');
+            }
 
-		} else if ( isMultiple ) {
+            // Update the value
+            input.value = currentValue;
+            if (window.askia && window.arrLiveRoutingShortcut && window.arrLiveRoutingShortcut.length > 0 && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
+                askia.triggerAnswer();
+            }
+        }
+        
+        // add ns to last x items
+        if ( options.numberNS > 0 ) {
+            var nsItems = responseItems.slice(-options.numberNS);
+            for ( i=0; i<nsItems.length; i++) {
+                addClass(nsItems[i], 'ns');
+                nsItems[i].style.filter = '';
+            }
+        }
+        
+        // Retrieve previous selection
+        if ( !isMultiple ) {
+            var input = items[0].element,
+                currentValue = input.value;
 
-			var $input = items[0].element;
-			var currentValues = String($input.val()).split(","),
-				currentValue;
+            for ( i=0; i<responseItems.length; i++) {
+                responseItems[i].setAttribute('data-id', i);
+                var value = responseItems[i].getAttribute('data-value'),
+                    isSelected = responseItems[i].getAttribute('data-value') === currentValue ? true : false;
+                if (isSelected) {
+                    addClass(responseItems[i], 'selected');
+                } else {
+                    responseItems[i].style.filter = '';
+                    removeClass(responseItems[i], 'selected');
+                }
+            }
+        } else if ( isMultiple ) {
+            var input = document.querySelector(items[0].element),
+                currentValues = String(input.value).split(","),
+                currentValue;
+            
+            for ( i=0; i<currentValues.length; i++ ) {
+                currentValue = currentValues[i];
+                for ( var j=0; j<responseItems.length; j++) {   
+                    if ( !hasClass( responseItems[j], 'exclusive' ) ) addClass( responseItems[j], 'cb' );
+                    responseItems[j].setAttribute('data-id', j);
+                    var value = responseItems[j].getAttribute('data-value'),
+                        isSelected = responseItems[j].getAttribute('data-value') == currentValue ? true : false;
+                    if (isSelected) {
+                        addClass(responseItems[j], 'selected');
+                    }
+                }
+            }
+        }
+        
+        // Attach all events
+        for ( i=0; i<responseItems.length; i++) {   
+            responseItems[i].onclick = function(e){
+                (!isMultiple) ? selectStatementSingle(this) : selectStatementMulitple(this);
+            };
+        }
+        
+    }
 
-			for ( var i=0; i<currentValues.length; i++ ) {
-				//currentValue = items[i].element.val();
-				currentValue = currentValues[i];
-				$container.find('.responseItem').each(function () {
-					var value = $(this).attr('data-value'),
-						isSelected = $(this).attr('data-value') == currentValue ? true : false;
-					if (isSelected) {
-						$(this).addClass('selected');
-					}
-				});
-
-			}
-		}
-
-		// Attach all events
-		//$container.delegate('.responseItem', 'click', (!isMultiple) ? selectStatementSingle : selectStatementMulitple);
-		if ( total_images > 0 ) {
-			$container.find('img').each(function() {
-				var fakeSrc = $(this).attr('src');
-				$("<img/>").css('display', 'none').load(function() {
-					images_loaded++;
-					if (images_loaded >= total_images) {
-						// now all images are loaded.
-
-						if ( options.forceResponseSize === 'no' ) {
-							//$('.responseItem').width($('.responseItem').width());
-						} else if ( options.forceResponseSize === 'width' ) {
-							$container.find('.responseItem').width( options.forcedResponseWidth );
-						} else if ( options.forceResponseSize === 'height' ) {
-							$container.find('.responseItem').height( options.forcedResponseHeight );
-						} else if ( options.forceResponseSize === 'both' ) {
-							$container.find('.responseItem').width( options.forcedResponseWidth ).height( options.forcedResponseHeight );
-						}
-
-						// Check for missing images and resize
-						$container.find('.responseItem img').each(function forEachImage() {
-							var size = {
-								width: $(this).width(),
-								height: $(this).height()
-							};
-
-							if (options.forceImageSize === "height" ) {
-								if ( size.height > options.maxImageHeight ) {
-									var ratio = (options.maxImageHeight / size.height);
-									size.height *= ratio,
-									size.width  *= ratio;
-								} /*else applyPaddingTo = "height";*/
-							} else if (options.forceImageSize === "width" ) {
-								if ( size.width > options.maxImageWidth) {
-									var ratio = (options.maxImageWidth / size.width);
-									size.width  *= ratio,
-									size.height *= ratio;
-								} /*else applyPaddingTo = "width";*/
-
-							} else if (options.forceImageSize === "both" ) {
-								if (options.maxImageHeight > 0 && size.height > options.maxImageHeight) {
-									var ratio = (options.maxImageHeight / size.height);
-									size.height *= ratio,
-									size.width  *= ratio;
-								}
-
-								if (options.maxImageWidth > 0 && size.width > options.maxImageWidth) {
-									var ratio = (options.maxImageWidth / size.width);
-									size.width  *= ratio,
-									size.height *= ratio;
-								}
-							}
-							$(this).css(size);
-						});
-
-						$container.on('click', '.responseItem', (!isMultiple) ? selectStatementSingle : selectStatementMulitple);
-						$container.css('visibility','visible');
-
-						if ( options.animate ) {
-							var delay = 0,
-								easing = (!$.support.transition)?'swing':'snap';
-
-							$container.find('.responseItem').each(function forEachItem() {
-								$(this).css({ y: 2000, opacity: 0 }).transition({ y: 0, opacity: 1, delay: delay }, options.animationSpeed, easing);
-								delay += 30;
-							});
-						}
-					}
-				}).attr("src", fakeSrc);
-			});
-		} else {
-			$container.on('click', '.responseItem', (!isMultiple) ? selectStatementSingle : selectStatementMulitple);
-			$container.css('visibility','visible');
-
-			if ( options.animate ) {
-				var delay = 0,
-					easing = (!$.support.transition)?'swing':'snap';
-
-				$container.find('.responseItem').each(function forEachItem() {
-					$(this).css({ y: 2000, opacity: 0 }).transition({ y: 0, opacity: 1, delay: delay }, options.animationSpeed, easing);
-					delay += 30;
-				});
-			}
-		}
-
-		// Returns the container
-		return this;
-	};
-
-} (jQuery));
+	window.ImageSelect = ImageSelect;
+}());

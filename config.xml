@@ -7,7 +7,7 @@
   <info>
     <name>ImageSelect</name>
     <guid>5a729b84-1435-4a73-8660-19f865d413f1</guid>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <date>2013-08-23</date>
     <description><![CDATA[Describe your ADC here
         v1.0.6 - removed CSS3 Pie
@@ -19,7 +19,8 @@
 		v1.0.11 - fixed padding issue with ns responses
         v1.0.12 - fixed scope issues with .css selectors
 		v1.0.13 - JD - fixed alignment of the responses
-	  	v2.0.0 - JD - Theme implementation]]></description>
+	  	v2.0.0 - JD - Theme implementation
+		v2.0.1 - PureJS version]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>      Stephen Bronnec <stephen@askia.com>      Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -65,10 +66,7 @@
             <![endif]-->
         ]]></yield>
       </content>
-      <content fileName="jquery-1.11.1.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery-ui-1.10.4.custom.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery.ui.touch-punch.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery.transit.min.js" type="javascript" mode="share" position="head" />
+      <content fileName="domready.js" type="javascript" mode="share" position="head" />
       <content fileName="imageSelect.js" type="javascript" mode="static" position="head" />
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_single.js" type="javascript" mode="dynamic" position="none" />
@@ -95,9 +93,7 @@
       </property>
       <property xsi:type="standardProperty" id="controlAlign" name="Control Alignment" type="string" mode="static">
         <description><![CDATA[
-          
 	          The alignment of the control
-	        
         ]]></description>
         <value><![CDATA[left]]></value>
         <options>
@@ -138,22 +134,6 @@
         <description><![CDATA[The amount of curve on the response corners]]></description>
         <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="animateResponses" name="Animate Responses" type="boolean" mode="static" require="false" visible="true">
-        <description><![CDATA[Whether the resonses fly into the screen]]></description>
-        <value><![CDATA[0]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="animationSpeed" name="Animation Speed" type="string" mode="static">
-        <description><![CDATA[
-          Speed of the animation
-        ]]></description>
-        <value><![CDATA[fast]]></value>
-        <options>
-          <option value="very fast" text="Very Fast" />
-          <option value="fast" text="Fast" />
-          <option value="medium" text="Medium" />
-          <option value="slow" text="Slow" />
-        </options>
-      </property>
       <property xsi:type="standardProperty" id="autoForward" name="Auto Forward" type="boolean" mode="static" require="false" visible="true">
         <description><![CDATA[Whether the question continues to the next automatically if a single choice question]]></description>
         <value><![CDATA[0]]></value>
@@ -170,9 +150,7 @@
       </property>
       <property xsi:type="standardProperty" id="displayResponseText" name="Display Response Text" type="string" mode="static">
         <description><![CDATA[
-          
 	          Display response text
-	        
         ]]></description>
         <value><![CDATA[block]]></value>
         <options>
@@ -182,25 +160,19 @@
       </property>
       <property xsi:type="standardProperty" id="forcedResponseW" name="Forced Response Width" type="string" mode="static">
         <description><![CDATA[
-          
 	          Set forced response width
-			
         ]]></description>
         <value></value>
       </property>
       <property xsi:type="standardProperty" id="forcedResponseH" name="Forced Response Height" type="string" mode="static">
         <description><![CDATA[
-          
 	          Set forced response height
-			
         ]]></description>
         <value></value>
       </property>
       <property xsi:type="standardProperty" id="forceResponseSize" name="Force Response size" type="string" mode="static">
         <description><![CDATA[
-          
 	          Set forced response height
-	        
         ]]></description>
         <value><![CDATA[no]]></value>
         <options>
