@@ -47,6 +47,10 @@ Dim showResponseHoverBorder =CurrentADC.PropValue("showResponseHoverBorder")
 
 Dim fontSize =CurrentADC.PropValue("fontSize")
 
+Dim forceResponseSize =CurrentADC.PropValue("forceResponseSize")
+Dim forcedResponseW =CurrentADC.PropValue("forcedResponseW")
+Dim forcedResponseH =CurrentADC.PropValue("forcedResponseH")
+
 %}
 
 
@@ -75,6 +79,12 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 
 	{% IF imageAlign = "center" Then %}
 		text-align:center;
+	{% EndIF %}
+    {% IF forceResponseSize = "width" or forceResponseSize = "both" Then %}
+		width: {%= forcedResponseW%}px;
+	{% EndIF %}
+    {% IF forceResponseSize = "height" or forceResponseSize = "both" Then %}
+		height: {%= forcedResponseH%}px;
 	{% EndIF %}
 
 }

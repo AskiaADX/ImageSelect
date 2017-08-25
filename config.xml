@@ -21,7 +21,8 @@
 		v1.0.13 - JD - fixed alignment of the responses
 	  	v2.0.0 - JD - Theme implementation
 		v2.0.1 - PureJS version
-		v2.0.2 - Fixed disapearing text bug when everything center aligned]]></description>
+		v2.0.2 - Fixed disapearing text bug when everything center aligned
+		v2.0.3 - Fixed force response size]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>      Stephen Bronnec <stephen@askia.com>      Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -159,10 +160,8 @@
           <option value="none" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="forcedResponseW" name="Forced Response Width" type="string" mode="static">
-        <description><![CDATA[
-	          Set forced response width
-        ]]></description>
+      <property xsi:type="standardProperty" id="forcedResponseW" name="Forced Response Width" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Set forced response width]]></description>
         <value></value>
       </property>
       <property xsi:type="standardProperty" id="forcedResponseH" name="Forced Response Height" type="string" mode="static">
@@ -171,10 +170,8 @@
         ]]></description>
         <value></value>
       </property>
-      <property xsi:type="standardProperty" id="forceResponseSize" name="Force Response size" type="string" mode="static">
-        <description><![CDATA[
-	          Set forced response height
-        ]]></description>
+      <property xsi:type="standardProperty" id="forceResponseSize" name="Force Response size" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Set forced response height]]></description>
         <value><![CDATA[no]]></value>
         <options>
           <option value="no" text="No" />
