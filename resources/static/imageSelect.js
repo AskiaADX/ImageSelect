@@ -173,6 +173,8 @@
             } 
             images[i].width = size.width;
             images[i].height = size.height;
+            
+            setTimeout(function(){ document.querySelector("#adc_" + this.instanceId).style.visibility = 'visible'; }, 300);
         }
         
         // For multi-coded question
