@@ -174,7 +174,6 @@
             images[i].width = size.width;
             images[i].height = size.height;
             
-            setTimeout(function(){ document.querySelector("#adc_" + this.instanceId).style.visibility = 'visible'; }, 300);
         }
         
         // For multi-coded question
@@ -341,6 +340,10 @@
             };
         }
         
+        setTimeout(
+            (function(that){ 
+                document.getElementById("adc_" + that.instanceId).style.visibility = 'visible'; 
+            })(this), 300);
     }
 
 	window.ImageSelect = ImageSelect;
