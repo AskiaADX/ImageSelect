@@ -108,7 +108,19 @@ Dim forcedResponseH =CurrentADC.PropValue("forcedResponseH")
 	box-shadow: {%= responseHoverShadow%};
 
 }
+@media screen and (max-width: 800px) {
+    #adc_{%= CurrentADC.InstanceId%} .responseItem:hover {
 
+        /* Decoration */
+        border: {%= borderThickness%} {%= borderStyle%} rgb({%= borderColour%});
+        {% IF showResponseHoverColour = "1" Then %}
+        background-color: rgb({%= responseColourPrimary%});
+        {% EndIF %}
+        -webkit-box-shadow: {%= responseShadow%};
+        -moz-box-shadow: {%= responseShadow%};
+        box-shadow: {%= responseShadow%};
+    }
+}
 #adc_{%= CurrentADC.InstanceId%} .response_text
 {
 	display:{%= displayResponseText%};
@@ -125,7 +137,13 @@ Dim forcedResponseH =CurrentADC.PropValue("forcedResponseH")
 		color:rgb({%= responseHoverFontColour%});
 	{% EndIF %}
 }
-
+@media screen and (max-width: 800px) {
+    #adc_{%= CurrentADC.InstanceId%} .responseItem:hover .response_text { 
+        {% IF showResponseHoverFontColour = "1" Then %}
+        color:rgb({%= fontColour %});
+        {% EndIF %}
+    }
+}
 #adc_{%= CurrentADC.InstanceId%} .responseItem img {
 
 	float: {%= imageAlign%};
