@@ -50,7 +50,9 @@ IF numberOfColumns > 0 Then
     Next
     
 Else
-	
+	%}
+	<div class="column">
+	{%
     For j = 1 To CurrentQuestion.AvailableResponses.Count 
         inputValue  = CurrentQuestion.AvailableResponses[j].InputValue()
         caption     = CurrentQuestion.AvailableResponses[j].Caption
@@ -64,5 +66,5 @@ Else
         <div style="clear:both"></div>
     </div>
     {% Next %}
-    <div style="clear:both"></div>
+    <div style="clear:both"></div></div>
 {% EndIF %}

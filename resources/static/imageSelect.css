@@ -1,59 +1,53 @@
 @charset "utf-8";
 /* CSS Document */
 
+.adc-imageSelect * {
+    box-sizing: border-box;
+}
+
 /* Reponses */
 .adc-imageSelect .responseItem
 {
     /* Element */
-	display:inline-block;
+    display:inline-block;
     /*width: 130px;*/
     /*height: 60px;*/
-	margin:0 0 5px 5px;
+    margin:0 0 5px 0;
     vertical-align:middle;
-	cursor:pointer;
+    cursor:pointer;
 
-	-webkit-transform: translate3d(0, 0, 0);
-	-webkit-backface-visibility: hidden;
-	-webkit-perspective: 1000;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
 
-	/* disable highlight text */
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select:none;
-	user-select:none;
+    /* disable highlight text */
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
 
-	position:relative;
+    position:relative;
 }
 
 .adc-imageSelect .response_text
 {
-	display:block;
-	padding:10px;
-	line-height:1.2;
-	text-align:center;
+    display:block;
+    padding:10px;
+    line-height:1.2;
+    text-align:center;
 }
 
 .adc-imageSelect .responseItem img , .adc-imageSelect .imgSpacer
 {
-	display:inline-block;
-	margin:5px;
-}
-
-.adc-imageSelect .responseItem.selected
-{
-
-}
-
-.adc-imageSelect .responseItem.selected .response_text
-{
-
+    display:inline-block;
+    margin:5px;
 }
 
 .adc-imageSelect .highlight 
 {
-	z-index:1;
-	display:none;
+    z-index:1;
+    display:none;
 
-	position:absolute;
-	left:0px; top:0px;
+    position:absolute;
+    left:0px; top:0px;
 }

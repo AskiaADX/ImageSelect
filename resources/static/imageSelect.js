@@ -122,19 +122,25 @@
 		
 		if ( options.controlAlign === "center" ) {
             container.parentNode.style.textAlign = 'center';
-            container.style.margin = '0px auto';
+            //container.style.margin = '0px auto';
 		} else if ( options.controlAlign === "right" ) {
-            container.style.margin = '0 0 0 auto';
+            container.parentNode.style.textAlign = 'right';
+            //container.style.margin = '0 0 0 auto';
 		}
 
-		if ( options.columns > 1 )  {
+		if ( options.columns >= 0 )  {
             for ( i=0; i < columns.length; i++ ) {
                 columns[i].style.display = "block";
                 columns[i].style.width = '100%';
             }
+            var numberOfColumns = (options.columns > 0) ? options.columns : 5;
+            var style = responseItems[0].currentStyle || window.getComputedStyle(responseItems[0]),
+            	widthDiff = (responseItems[0].offsetWidth + parseFloat(style.marginLeft) + parseFloat(style.marginRight)) - responseItems[0].clientWidth,
+            	newWidth = ((columns[0].offsetWidth - (widthDiff * numberOfColumns))/numberOfColumns) - 10;
             for ( i=0; i < responseItems.length; i++ ) {
-                responseItems[i].style.display = "block";
-                responseItems[i].style.float = 'left';
+                responseItems[i].style.display = "inline-block";
+                responseItems[i].style.width = newWidth+'px';
+                //responseItems[i].style.float = 'left';
             }
 		}
         

@@ -81,10 +81,10 @@ Dim forcedResponseH =CurrentADC.PropValue("forcedResponseH")
 		text-align:center;
 	{% EndIF %}
     {% IF forceResponseSize = "width" or forceResponseSize = "both" Then %}
-		width: {%= forcedResponseW%}px;
+    width: {%= forcedResponseW%}{%= On(forcedResponseW.IsNumber(),"px !important"," !important") %};
 	{% EndIF %}
     {% IF forceResponseSize = "height" or forceResponseSize = "both" Then %}
-		height: {%= forcedResponseH%}px;
+		height: {%= forcedResponseH%}{%= On(forcedResponseW.IsNumber(),"px","") %};
 	{% EndIF %}
 
 }
