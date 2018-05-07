@@ -138,7 +138,7 @@
             	widthDiff = (responseItems[0].offsetWidth + parseFloat(style.marginLeft) + parseFloat(style.marginRight)) - responseItems[0].clientWidth,
             	newWidth = ((columns[0].offsetWidth - (widthDiff * numberOfColumns))/numberOfColumns) - 10;
             for ( i=0; i < responseItems.length; i++ ) {
-                responseItems[i].style.display = "inline-block";
+                responseItems[i].style.display = "inline-table";
                 responseItems[i].style.width = newWidth+'px';
                 //responseItems[i].style.float = 'left';
             }
