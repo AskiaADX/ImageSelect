@@ -207,7 +207,7 @@ Dim forcedResponseH =CurrentADC.PropValue("forcedResponseH")
 
 #adc_{%= CurrentADC.InstanceId%} .ns .response_text
 {
-	display:{%= displayResponseText%};
+	display:block;
 	padding:{%= responseTextPadding%};
 	font-size:{%= fontSize%};
 	color:rgb({%= nsfontColour%});
