@@ -7,7 +7,7 @@
   <info>
     <name>ImageSelect</name>
     <guid>5a729b84-1435-4a73-8660-19f865d413f1</guid>
-    <version>2.0.9</version>
+    <version>2.0.10</version>
     <date>2013-08-23</date>
     <description><![CDATA[Describe your ADC here
         v1.0.6 - removed CSS3 Pie
@@ -64,6 +64,7 @@
       <content fileName="imageSelect.css" type="css" mode="static" position="head" />
       <content fileName="standard.css" type="css" mode="dynamic" position="head" />
       <content fileName="standard.html" type="html" mode="dynamic" position="placeholder" />
+      <content fileName="magnifyingGlass.png" type="image" mode="static" position="none" />
       <content fileName="standard_single.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_multiple.html" type="html" mode="dynamic" position="none" />
       <content fileName="es5-shim.min.js" type="javascript" mode="share" position="head">
@@ -75,6 +76,7 @@
       </content>
       <content fileName="domready.js" type="javascript" mode="share" position="head" />
       <content fileName="imageSelect.js" type="javascript" mode="static" position="head" />
+      <content fileName="simplbox.js" type="javascript" mode="static" position="foot" />
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_single.js" type="javascript" mode="dynamic" position="none" />
       <content fileName="standard_multiple.js" type="javascript" mode="dynamic" position="none" />
@@ -394,6 +396,14 @@
       </property>
     </category>
     <category id="images" name="Images">
+      <property xsi:type="standardProperty" id="imgZoom" name="Image zoom" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Image Zoom]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
       <property xsi:type="standardProperty" id="maxImageWidth" name="Max Image Width" type="number" mode="static">
         <description><![CDATA[
           Set max image width

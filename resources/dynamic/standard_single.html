@@ -7,6 +7,8 @@ Dim columnCounter
 Dim ar = CurrentQuestion.AvailableResponses
 Dim i
 Dim j
+Dim imgZoom
+Dim paddingZoom
 %}
 <input type="hidden" id="{%= inputName %}" name="{%= inputName %}" value="{%= CurrentQuestion.InputValue() %}"  />
 {%
@@ -21,14 +23,17 @@ IF numberOfColumns > 0 Then
         inputValue  = CurrentQuestion.AvailableResponses[i].InputValue()
         caption     = CurrentQuestion.AvailableResponses[i].Caption
         image		= CurrentQuestion.AvailableResponses.ResourceURL[i]
+        imgZoom = On((image <> "") and (CurrentADC.PropValue("imgZoom") = "1"),"data-id=\"imgZoom_" + CurrentADC.InstanceId + "_" + i + "\"","")
+    	paddingZoom = On((image <> "") and (CurrentADC.PropValue("imgZoom") = "1")," paddingZoom","")
             
         if ( (columnCounter mod numberOfColumns) = 0 ) Then %}
         	<div class="column">
         {% EndIf %}
             
-        <div class="responseItem" data-value="{%= inputValue %}" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+        <div class="responseItem{%:= paddingZoom %}" {%:= imgZoom %} data-value="{%= inputValue %}" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
             {% IF image <> "" Then %}
-                <img src="{%= image %}" />
+                <img src="{%= image %}" class="image" />
+            	{% If (CurrentADC.PropValue("imgZoom") = "1") Then %}<a href="{%= CurrentQuestion.AvailableResponses.ResourceURL[i] %}" target="_blank" data-simplbox="imgZoom_{%= CurrentADC.InstanceId %}_{%= i %}"><div class="imgZoom"></div></a>{% EndIf %}
             {% EndIF %}
             <span class="response_text">{%:= caption %}</span>
             <div style="clear:both"></div>
@@ -57,10 +62,13 @@ Else
         inputValue  = CurrentQuestion.AvailableResponses[j].InputValue()
         caption     = CurrentQuestion.AvailableResponses[j].Caption
         image		= CurrentQuestion.AvailableResponses.ResourceURL[j]
+    	imgZoom = On((image <> "") and (CurrentADC.PropValue("imgZoom") = "1"),"data-id=\"imgZoom_" + CurrentADC.InstanceId + "_" + j + "\"","")
+    	paddingZoom = On((image <> "") and (CurrentADC.PropValue("imgZoom") = "1")," paddingZoom","")
     %}
-    <div class="responseItem" data-value="{%= inputValue %}" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+    <div class="responseItem{%:= paddingZoom %}" {%:= imgZoom %} data-value="{%= inputValue %}" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
         {% IF image <> "" Then %}
-            <img src="{%= image %}" />
+            <img src="{%= image %}" class="image" />
+        	{% If (CurrentADC.PropValue("imgZoom") = "1") Then %}<a href="{%= CurrentQuestion.AvailableResponses.ResourceURL[j] %}" target="_blank" data-simplbox="imgZoom_{%= CurrentADC.InstanceId %}_{%= j %}"><div class="imgZoom"></div></a>{% EndIf %}
         {% EndIF %}
         <span class="response_text">{%:= caption %}</span>
         <div style="clear:both"></div>

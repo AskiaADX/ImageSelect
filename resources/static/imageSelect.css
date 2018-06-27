@@ -1,6 +1,61 @@
 @charset "utf-8";
 /* CSS Document */
 
+.adc-imageSelect .imgZoom {
+  position: absolute;
+  background: url(magnifyingGlass.png) center center no-repeat;
+  bottom: 7px;
+  width: 22px;
+  height: 22px;
+  z-index: 2;
+  right: 5px;
+}
+
+.adc-imageSelect .imgZoom:hover {
+  right: 6px;
+  bottom: 8px;
+}
+
+.adc-imageSelect .paddingZoom {
+  padding-right: 25px !important;
+}
+
+/* simplbox lightbox styling */
+#simplbox {
+  position: fixed;
+  top: 0;
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  ms-touch-action: none;
+  touch-action: none;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+  z-index: 10;
+}
+
+#simplbox-overlay {
+  background-color: #e5e5e5;
+  filter: alpha(opacity=60);
+  background-color: rgba(0, 0, 0, 0.1);
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#simplbox-loading {
+  position: fixed;
+  z-index: 13;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: #cccccc;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
+}
+
 .adc-imageSelect * {
     box-sizing: border-box;
 }
