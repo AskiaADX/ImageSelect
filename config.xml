@@ -30,8 +30,11 @@
 		v2.0.9 - Fixed some styling issues
 		v2.0.10 - Added Image zoom parameter
 		v2.0.11 - Improved the visibility of the response text
-		v2.0.12 - Add alt attribute to img
-				- Add span to links]]></description>
+		v2.0.12 - Added alt attribute to img
+				- Added span to links
+				- Added scenarios accessible and normal
+				- Added ouput accessible
+				- Created fallback_accessible.html]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>      Stephen Bronnec <stephen@askia.com>      Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
