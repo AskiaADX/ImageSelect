@@ -16,8 +16,8 @@ For i = 1 To CurrentQuestion.AvailableResponses.Count
     resource	= CurrentQuestion.AvailableResponses.ResourceURL[i]
 %}
 <div class="responseItem" style="display:table-cell;">
-    {% IF (resource <> "") Then %}
-        <img src="{%= resource %}" style="vertical-align:middle" />
+    {% IF resource <> "" Then %}
+    <img src="{%= resource %}" style="vertical-align:middle" alt="{%:= caption %}" />
     {% EndIf %}
     <label for="{%= inputId %}">{%:= caption %}</label>
     <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />

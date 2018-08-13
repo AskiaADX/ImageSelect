@@ -36,8 +36,8 @@ IF numberOfColumns > 0 Then
         
         <div class="responseItem{%:= paddingZoom %}{%= attrExclusive %}" {%:= imgZoom %} data-value="{%= inputValue %}" data-id="{%= i-1 %}" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
             {% IF image <> "" Then %}
-                <img src="{%= image %}" class="image" />
-            	{% If (CurrentADC.PropValue("imgZoom") = "1") Then %}<a href="{%= CurrentQuestion.AvailableResponses.ResourceURL[i] %}" target="_blank" data-simplbox="imgZoom_{%= CurrentADC.InstanceId %}_{%= i %}"><div class="imgZoom"></div></a>{% EndIf %}
+                <img src="{%= image %}" class="image" alt="{%:= caption %}" />
+            	{% If (CurrentADC.PropValue("imgZoom") = "1") Then %}<a href="{%= CurrentQuestion.AvailableResponses.ResourceURL[i] %}" target="_blank" data-simplbox="imgZoom_{%= CurrentADC.InstanceId %}_{%= i %}"><div class="imgZoom"></div><span hidden>Zoom limk</span></a>{% EndIf %}
             {% EndIF %}
             <span class="response_text"{%:= hideResponseText %}>{%:= caption %}</span>
             <div style="clear:both"></div>
@@ -72,7 +72,7 @@ Else
     %}
     <div class="responseItem{%:= paddingZoom %}{%= attrExclusive %}" {%:= imgZoom %} data-value="{%= inputValue %}" data-id="{%= j-1 %}" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
         {% IF image <> "" Then %}
-            <img src="{%= image %}" class="image" />
+            <img src="{%= image %}" class="image" alt="{%:= caption %}"/>
         	{% If (CurrentADC.PropValue("imgZoom") = "1") Then %}<a href="{%= CurrentQuestion.AvailableResponses.ResourceURL[j] %}" target="_blank" data-simplbox="imgZoom_{%= CurrentADC.InstanceId %}_{%= j %}"><div class="imgZoom"></div></a>{% EndIf %}
         {% EndIF %}
         <span class="response_text"{%:= hideResponseText %}>{%:= caption %}</span>

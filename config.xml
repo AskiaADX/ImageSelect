@@ -29,7 +29,9 @@
 		v2.0.8 - Fixed hover styling for small screen
 		v2.0.9 - Fixed some styling issues
 		v2.0.10 - Added Image zoom parameter
-		v2.0.11 - Improved the visibility of the response text]]></description>
+		v2.0.11 - Improved the visibility of the response text
+		v2.0.12 - Add alt attribute to img
+				- Add span to links]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>      Stephen Bronnec <stephen@askia.com>      Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -49,7 +51,7 @@
         Fallback when the browser doesn&acute;t support Javascript
       ]]></description>
       <condition><![CDATA[
-        Not(Browser.Support("javascript"))
+(Not(Browser.Support("javascript"))) and (Interview.Scenario = "normal")
       ]]></condition>
       <content fileName="default.css" type="css" mode="static" position="head" />
       <content fileName="single.html" type="html" mode="dynamic" position="none" />
@@ -61,7 +63,7 @@
         Output when the browser support Javascript
       ]]></description>
       <condition><![CDATA[
-        Browser.Support("javascript")
+        (Browser.Support("javascript")) and (Interview.Scenario = "normal")
       ]]></condition>
       <content fileName="imageSelect.css" type="css" mode="static" position="head" />
       <content fileName="standard.css" type="css" mode="dynamic" position="head" />
@@ -82,6 +84,11 @@
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_single.js" type="javascript" mode="dynamic" position="none" />
       <content fileName="standard_multiple.js" type="javascript" mode="dynamic" position="none" />
+    </output>
+    <output id="accessible">
+      <description><![CDATA[Fallback for web accessibility]]></description>
+      <condition><![CDATA[Interview.Scenario = "accessible"]]></condition>
+      <content fileName="fallback_accessible.html" type="html" mode="dynamic" position="placeholder" />
     </output>
   </outputs>
   <properties>
