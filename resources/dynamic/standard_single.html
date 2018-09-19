@@ -41,18 +41,17 @@ IF numberOfColumns > 0 Then
             <div style="clear:both"></div>
         </div>
         
-        {%
+         {%
         columnCounter = columnCounter - 1
         
-        IF columnCounter < 1 Then
+        IF (columnCounter < 1) or (i = CurrentQuestion.AvailableResponses.Count)  Then
         
-        	columnCounter = numberOfColumns
-            
             %}
             <div style="clear:both"></div>
             </div>
             
-        {% EndIF
+        {% columnCounter = numberOfColumns
+		EndIF
     
     Next
     

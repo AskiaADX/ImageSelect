@@ -7,7 +7,7 @@
   <info>
     <name>ImageSelect</name>
     <guid>5a729b84-1435-4a73-8660-19f865d413f1</guid>
-    <version>2.0.11</version>
+    <version>2.0.13</version>
     <date>2013-08-23</date>
     <description><![CDATA[Describe your ADC here
         v1.0.6 - removed CSS3 Pie
@@ -34,7 +34,8 @@
 				- Added span to links
 				- Added scenarios accessible and normal
 				- Added ouput accessible
-				- Created fallback_accessible.html]]></description>
+				- Created fallback_accessible.html
+		v2.0.13 - Fixed closing div]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>      Stephen Bronnec <stephen@askia.com>      Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
