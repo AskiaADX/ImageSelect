@@ -94,7 +94,7 @@ Dim forcedResponseH =CurrentADC.PropValue("forcedResponseH")
     width: {%= forcedResponseW%}{%= On(forcedResponseW.IsNumber(),"px !important"," !important") %};
 	{% EndIF %}
     {% IF forceResponseSize = "height" or forceResponseSize = "both" Then %}
-		height: {%= forcedResponseH%}{%= On(forcedResponseW.IsNumber(),"px","") %};
+    height: {%= forcedResponseH%}{%= On(forcedResponseW.IsNumber(),"px !important","!important") %};
 	{% EndIF %}
 
 }

@@ -34,7 +34,7 @@ IF numberOfColumns > 0 Then
         	<div class="column">
         {% EndIf %}
         
-        <div class="responseItem{%:= paddingZoom %}{%= attrExclusive %}" {%:= imgZoom %} data-value="{%= inputValue %}" data-id="{%= i-1 %}" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+        <div class="responseItem{%:= paddingZoom %}{%= attrExclusive %}" style="display:table-cell;" {%:= imgZoom %} data-value="{%= inputValue %}" data-id="{%= i-1 %}" unselectable='on' onselectstart='return false;' onmousedown='return false;'>
             {% IF image <> "" Then %}
                 <img src="{%= image %}" class="image" alt="{%:= caption %}" />
             	{% If (CurrentADC.PropValue("imgZoom") = "1") Then %}<a href="{%= CurrentQuestion.AvailableResponses.ResourceURL[i] %}" target="_blank" data-simplbox="imgZoom_{%= CurrentADC.InstanceId %}_{%= i %}"><div class="imgZoom"></div><span hidden>Zoom limk</span></a>{% EndIf %}
