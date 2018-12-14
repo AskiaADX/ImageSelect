@@ -7,7 +7,7 @@
   <info>
     <name>ImageSelect</name>
     <guid>5a729b84-1435-4a73-8660-19f865d413f1</guid>
-    <version>2.0.15</version>
+    <version>3.0.0</version>
     <date>2013-08-23</date>
     <description><![CDATA[Describe your ADC here
         v1.0.6 - removed CSS3 Pie
@@ -46,7 +46,7 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" single="true" multiple="true" chapter="false" date="false" numeric="false" open="false" requireParentLoop="false" />
+      <constraint on="questions" single="true" multiple="true" chapter="false" date="false" numeric="false" open="false" requireParentLoop="false" RequireLoopDepth="false" />
       <constraint on="controls" responseblock="true" checkbox="false" label="false" listbox="false" radiobutton="false" textbox="false" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
