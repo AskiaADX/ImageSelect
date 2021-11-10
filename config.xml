@@ -7,8 +7,8 @@
   <info>
     <name>ImageSelect</name>
     <guid>5a729b84-1435-4a73-8660-19f865d413f1</guid>
-    <version>3.0.0</version>
-    <date>2013-08-23</date>
+    <version>3.0.1</version>
+    <date>2021-11-10</date>
     <description><![CDATA[Describe your ADC here
         v1.0.6 - removed CSS3 Pie
 		v1.0.7 - enabled control to be used in loops
@@ -37,7 +37,10 @@
 				- Created fallback_accessible.html
 		v2.0.13 - Fixed closing div
 		v2.0.14 - Fallback and default output fixed
-		v2.0.15 - Face and Accessibility fixes]]></description>
+		v2.0.15 - Face and Accessibility fixes
+		v3.0.0 - 
+		v3.0.1 - img zoom bug fixed
+		]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>      Stephen Bronnec <stephen@askia.com>      Jerome Duparc <jeromed@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -54,7 +57,7 @@
   <outputs defaultOutput="standard">
     <output id="fallback" manageLoopDepth="0">
       <description><![CDATA[
-        Fallback when the browser doesn&acute;t support Javascript
+        Fallback when the browser doesnacute;t support Javascript
       ]]></description>
       <condition><![CDATA[Not(Browser.Support("javascript"))
       ]]></condition>
