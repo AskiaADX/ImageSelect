@@ -278,9 +278,9 @@
                     swipeDifference = touchXStart - touchXEnd;
 
                     if (base.browser.isHardwareAccelerated) {
-                      console.log(event.touches[0].pageX);
-                        base.m_CurrentImageElement.style[base.getcss3prop("transition")] = "none";
-                        // base.m_CurrentImageElement.style[base.getcss3prop("transform")] = "translateX(" + -swipeDifference + "px)";
+                        if (base.m_CurrentImageElement)
+                          base.m_CurrentImageElement.style[base.getcss3prop("transition")] = "none";
+                           // base.m_CurrentImageElement.style[base.getcss3prop("transform")] = "translateX(" + -swipeDifference + "px)";
                     }
                 });
 
@@ -294,6 +294,7 @@
                             base.rightAnimationFunction();
                         }
                     } else {
+                      if (base.m_CurrentImageElement)
                         base.m_CurrentImageElement.style[base.getcss3prop("transform")] = "translateX(0px)";
                     }
                 });

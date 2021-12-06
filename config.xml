@@ -7,8 +7,8 @@
   <info>
     <name>ImageSelect</name>
     <guid>5a729b84-1435-4a73-8660-19f865d413f1</guid>
-    <version>3.0.1</version>
-    <date>2021-11-10</date>
+    <version>3.0.2</version>
+    <date>2021-12-06</date>
     <description><![CDATA[Describe your ADC here
         v1.0.6 - removed CSS3 Pie
 		v1.0.7 - enabled control to be used in loops
@@ -38,8 +38,9 @@
 		v2.0.13 - Fixed closing div
 		v2.0.14 - Fallback and default output fixed
 		v2.0.15 - Face and Accessibility fixes
-		v3.0.0 - 
+		v3.0.0 -
 		v3.0.1 - img zoom bug fixed
+    v3.0.2 - JS error fixed
 		]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>      Stephen Bronnec <stephen@askia.com>      Jerome Duparc <jeromed@askia.com>]]></author>

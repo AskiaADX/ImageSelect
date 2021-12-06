@@ -65,8 +65,10 @@
                 document.body.appendChild(newA);
             },
             overlayOff = function () {
-                var elA = document.getElementById("simplbox-overlay");
+              var elA = document.getElementById("simplbox-overlay");
+              if (elA) {
                 elA.parentNode.removeChild(elA);
+              }
             };
         var img = new SimplBox(document.querySelectorAll("[data-simplbox='" + strId + "']"), {
             quitOnImageClick: true,
@@ -118,7 +120,7 @@
                 init(options);
             }
         });
-        
+
         // Manage zoom
         var zooms = document.getElementById('adc_' + this.instanceId).querySelectorAll('.responseItem');
         for (var l1 = 0, k1 = zooms.length; l1 < k1; l1++) {
@@ -219,7 +221,7 @@
                     size.height *= ratio;
                 }
 
-            } 
+            }
             images[i].width = size.width;
             images[i].height = size.height;
 
@@ -370,7 +372,7 @@
 
             for ( i=0; i<currentValues.length; i++ ) {
                 currentValue = currentValues[i];
-                for ( var j=0; j<responseItems.length; j++) {   
+                for ( var j=0; j<responseItems.length; j++) {
                     if ( !hasClass( responseItems[j], 'exclusive' ) ) addClass( responseItems[j], 'cb' );
                     responseItems[j].setAttribute('data-id', j);
                     var value = responseItems[j].getAttribute('data-value'),
@@ -383,15 +385,15 @@
         }
 
         // Attach all events
-        for ( i=0; i<responseItems.length; i++) {   
+        for ( i=0; i<responseItems.length; i++) {
             responseItems[i].onclick = function(e){
                 (!isMultiple) ? selectStatementSingle(this) : selectStatementMulitple(this);
             };
         }
 
         setTimeout(
-            (function(that){ 
-                document.getElementById("adc_" + that.instanceId).style.visibility = 'visible'; 
+            (function(that){
+                document.getElementById("adc_" + that.instanceId).style.visibility = 'visible';
             })(this), 300);
     }
 
